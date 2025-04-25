@@ -27,7 +27,7 @@
         const response = await fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`);
         
         if (!response.ok) {
-          throw new Error('Lyrics not found or API error');
+          throw new Error('Lyrics not found');
         }
 
         const data = await response.json();
