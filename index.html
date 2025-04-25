@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Lyrics Finder</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>Lyrics Finder</h1>
@@ -15,9 +16,10 @@
     async function getLyrics() {
       const artist = document.getElementById('artist').value.trim();
       const title = document.getElementById('title').value.trim();
+      const lyricsElement = document.getElementById('lyrics');
 
       if (!artist || !title) {
-        document.getElementById('lyrics').textContent = 'Please enter both artist name and song title.';
+        lyricsElement.textContent = 'Please enter both artist name and song title.';
         return;
       }
 
@@ -29,11 +31,18 @@
         }
 
         const data = await response.json();
-        document.getElementById('lyrics').textContent = data.lyrics || 'Lyrics not found.';
+        
+        if (data.lyrics) {
+          lyricsElement.textContent = data.lyrics;
+        } else {
+          lyricsElement.textContent = 'Lyrics not found.';
+        }
+
       } catch (error) {
-        document.getElementById('lyrics').textContent = `Error: ${error.message}`;
+        lyricsElement.textContent = `Error: ${error.message}`;
       }
     }
   </script>
 </body>
 </html>
+
